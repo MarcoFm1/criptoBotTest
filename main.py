@@ -27,14 +27,21 @@ while True:
     timestamp = pd.Timestamp.now()
 
     price_df.loc[timestamp] = [f'{cripto}', price]
+    price_df.drop_duplicates(keep='last', inplace=True)
+
     
-  # Verifica si el precio actual es menor que el precio máximo registrado menos una cantidad arbitraria.
+  # Verificaciones
     if price < max_price - 0.01:
         print("=========================================")
         print('El precio de la cripto ha bajado.')
 
         max_price = price
         print(price_df)
+
+    elif (price == max_price):
+        print("=========================================")
+        print("El precio esta igual bro")
+
 
 
     else:
