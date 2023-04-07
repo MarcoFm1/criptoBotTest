@@ -26,27 +26,36 @@ while True:
     price = data['data'][f'{cripto}']['quote']['USD']['price']
     timestamp = pd.Timestamp.now()
 
+    diferencia = price - max_price 
+
     price_df.loc[timestamp] = [f'{cripto}', price]
-    price_df.drop_duplicates(keep='last', inplace=True)
 
     
   # Verificaciones
     if price < max_price - 0.01:
         print("=========================================")
-        print('El precio de la cripto ha bajado.')
+
+        print(f'El precio de la cripto ha bajado. {diferencia}')
 
         max_price = price
+        price_df.drop_duplicates(keep='last', inplace=True)
+
         print(price_df)
+        
 
     elif (price == max_price):
         print("=========================================")
+        price_df.drop_duplicates(keep='last', inplace=True)
+
         print("El precio esta igual bro")
 
 
 
     else:
         print("=========================================")
-        print("EL PRECIO SUBIO!")
+        price_df.drop_duplicates(keep='last', inplace=True)
+
+        print(f"EL PRECIO SUBIO +{diferencia}!")
         print(price_df)
 
     max_price = max(price, max_price)
